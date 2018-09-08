@@ -1,6 +1,8 @@
 import Koa from 'koa'
 import koaStatic from 'koa-static'
-import { log } from './src/log'
+import mount from 'koa-mount'
+import { log } from '../common/log'
+import { autorestart } from './autorestart'
 
 log.showDate = true
 
@@ -11,8 +13,12 @@ let koa = new Koa()
 // Serve index.html
 koa.use(koaStatic('./public'))
 // Serve main.mjs (and other code)
-koa.use(koaStatic('./src'))
+koa.use(koaStatic('./client'))
+
+koa.use(mount('/common', koaStatic('./common')))
 
 koa.listen(PORT)
 
 log(`Listening at http://localhost:${PORT}`)
+
+autorestart()

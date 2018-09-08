@@ -14,4 +14,32 @@ then
 	./build-dev
 fi
 
-node --experimental-modules ./server.mjs 2> >(grep -v "The ESM module loader is experimental")
+while true
+do
+	node --experimental-modules ./server/main.mjs \
+		2> >(grep -v "The ESM module loader is experimental")
+	RESULT=$?
+	# Result 10 means "restart me"
+	if [ "$RESULT" -eq 1 ]
+	then
+		echo
+		echo "Fix the error and I'll try again, or Ctrl-C to quit."
+		echo
+
+		# This moderately well working piece of magic is necessary for chokidar-cli to quit
+		# when it sees change. Really.
+		chokidar 'server/**/*.mjs' 'common/**/*.mjs' -c 'ps -ef | egrep chokidar | egrep "[ ]node" | awk "{ print \$2 }" | xargs kill -2' \
+			>/dev/null 2>/dev/null
+
+		echo "Here we go again:"
+		echo ""
+
+	elif [ "$RESULT" -eq 10 ]
+	then
+		:
+		# Process wants to restart
+	else
+		echo "Process exited with result $RESULT"
+		exit
+	fi
+done
