@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mkdir -p output
+babel babel-test.js -d output

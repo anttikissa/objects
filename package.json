@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:resqclub/greenfield.git",
   "author": "Antti Kissaniemi <antti@resq-club.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
 }
