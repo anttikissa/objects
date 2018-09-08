@@ -1,3 +1,9 @@
 #!/bin/bash
 
-node --experimental-modules ./server.mjs
+# TODO: when the module loader is no longer experimental,
+# remove the filter. (Bash-only;
+# https://unix.stackexchange.com/questions/3514/how-to-grep-standard-error-stream-stderr)
+
+export TZ=UTC
+
+node --experimental-modules ./server.mjs 2> >(grep -v "The ESM module loader is experimental")

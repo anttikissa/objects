@@ -1,5 +1,5 @@
-import { log } from './log'
-import { sleep } from './util'
+import { log } from './log.mjs'
+import { sleep } from './util.mjs'
 
 async function main() {
 	for (let i = 0; i < 5; i++) {

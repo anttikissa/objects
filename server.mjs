@@ -1,8 +1,17 @@
 import Koa from 'koa'
 import koaStatic from 'koa-static'
+import { log } from './src/log'
+log.showDate = true
 
-let koa = new Koa
+const PORT = 4000
 
+let koa = new Koa()
+
+// Serve index.html
 koa.use(koaStatic('./public'))
+// Serve main.mjs (and other code)
+koa.use(koaStatic('./src'))
 
-koa.listen(8080)
+koa.listen(PORT)
+
+log(`Listening at http://localhost:${PORT}`)
