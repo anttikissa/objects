@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import koaStatic from 'koa-static'
 import { log } from './src/log'
+
 log.showDate = true
 
 const PORT = 4000

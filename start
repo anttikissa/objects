@@ -6,4 +6,12 @@
 
 export TZ=UTC
 
+cd $(dirname $0)
+
+# Check if we need to do build-dev
+if [ ! -f public/redom.mjs ]
+then
+	./build-dev
+fi
+
 node --experimental-modules ./server.mjs 2> >(grep -v "The ESM module loader is experimental")

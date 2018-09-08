@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Ensure that external modules are in place so we can do development.
+# Assumes that 'yarn' has been run.
+#
+
+cd $(dirname $0)
+
+cp node_modules/redom/dist/redom.es.js public/redom.mjs
