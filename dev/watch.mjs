@@ -34,7 +34,8 @@ let watchOptions = {
 		}),
 		rollupPostcss({
 			extract: 'public/styles.css',
-			sourceMap: true
+			sourceMap: true,
+			plugins: []
 		}),
 	]
 }
