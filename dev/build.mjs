@@ -1,3 +1,11 @@
+//
+// Build the project once or whenever items change (if given argument --watch).
+// Results in public/ being populated with .js and .css files.
+//
+// Run this from the root directory.
+// e.g. node dev/build.mjs
+//
+
 import rollup from 'rollup'
 import path from 'path'
 import process from 'process'
@@ -7,24 +15,15 @@ import { log } from '../common/log'
 // Allows us to import npm modules
 import rollupResolve from 'rollup-plugin-node-resolve'
 
-// Allows us to import .styl files (which will be bundled in their own output file)
-// import rollupStylus from './rollupStylus'
-
-// import rollupCss from 'rollup-plugin-css-only'
-
+// Allows us to import CSS, and, as it happens, also Stylus files
 import rollupPostcss from 'rollup-plugin-postcss'
-
-//
-// Run this from the root directory.
-// e.g. node dev/watch.mjs
-//
 
 let outputOptions = {
 	file: 'public/bundle.js',
 	format: 'iife'
 }
 
-let watchOptions = {
+let rollupOptions = {
 	input: 'client/main.mjs',
 	output: outputOptions,
 	watch: {
@@ -44,19 +43,22 @@ let watchOptions = {
 
 let doWatch = process.argv.includes('--watch')
 
-log('!!! DO ', doWatch, process.argv)
-
 async function doIt() {
 	if (doWatch) {
-		let watcher = rollup.watch(watchOptions)
+		let watcher = rollup.watch(rollupOptions)
 		watcher.on('event', ev => {
 			handleEvent(ev)
 		})
 	} else {
-		const bundle = await rollup.rollup(watchOptions)
+		let start = new Date()
 
-		// or write the bundle to disk
+		log(`Bundling ${rollupOptions.input} => ${outputOptions.file}`)
+		const bundle = await rollup.rollup(rollupOptions)
+
 		await bundle.write(outputOptions)
+		let end = new Date()
+
+		log(`Finished ${rollupOptions.input} => ${outputOptions.file} in ${end - start} ms`)
 	}
 }
 
@@ -80,6 +82,7 @@ function findLoc(error) {
 
 	return result
 }
+
 function handleEvent(ev) {
 	if (ev.code === 'FATAL' || ev.code === 'ERROR') {
 		let loc = findLoc(ev.error)
