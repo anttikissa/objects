@@ -2,5 +2,7 @@ node_modules
 .*.swp
 output
 
-# These will be copied from somewhere by build steps
-public/*.mjs
+#public/*.mjs
+public/bundle-dev.js
+public/styles-dev.css
+

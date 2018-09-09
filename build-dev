@@ -1,9 +1,11 @@
 #!/bin/bash
 #
-# Ensure that external modules are in place so we can do development.
+# Does a development build.
 # Assumes that 'yarn' has been run.
 #
 
 cd $(dirname $0)
 
-cp node_modules/redom/dist/redom.es.js public/redom.mjs
+# rollup client/main.mjs --format iife -o public/bundle-dev.js
+rollup -c rollup.config.js
+

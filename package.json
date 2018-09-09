@@ -10,7 +10,11 @@
     "babel-preset-env": "^1.7.0",
     "chokidar": "^2.0.4",
     "chokidar-cli": "^1.2.1",
-    "eslint": "^5.5.0"
+    "eslint": "^5.5.0",
+    "rollup": "^0.65.2",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-stylus-css-modules": "^1.5.0",
+    "stylus": "^0.54.5"
   },
   "engines": {
     "node": ">=10"

@@ -1,4 +1,4 @@
-import { el, mount } from '/redom.mjs'
+import { el, mount } from 'redom'
 
 import { log } from '../common/log.mjs'
 import { sleep } from '../common/util.mjs'

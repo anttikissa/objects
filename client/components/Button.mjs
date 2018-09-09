@@ -1,6 +1,6 @@
-import { el } from '/redom.mjs'
+import { el } from 'redom'
 // You cannot do that so let's have a build step after all
-// import './Button.css'
+import './Button.styl'
 
 export class Button {
 	constructor(text) {
