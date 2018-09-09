@@ -41,7 +41,8 @@ let rollupOptions = {
 	]
 }
 
-let doWatch = process.argv.includes('--watch')
+let args = process.argv
+let doWatch = args.includes('--watch') || args.includes('-w')
 
 async function doIt() {
 	if (doWatch) {
