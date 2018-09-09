@@ -4,8 +4,11 @@ import { el } from 'redom'
 import './Button.styl'
 
 export class Button {
-	constructor(text) {
+	constructor(text, optionalClass) {
 		this.el = el('button.Button', text)
+		if (optionalClass) {
+			this.el.classList.add(optionalClass)
+		}
 	}
 
 	set onclick(f) {

@@ -9,7 +9,13 @@ import { Button } from './components/Button.mjs'
 
 class App {
 	constructor() {
-		this.el = el('div.app', 'Hello world!', (this.button = new Button('Hello')))
+		this.el = el(
+			'div.app',
+			'Hello world!',
+			(this.button = new Button('Hello')),
+			(this.button2 = new Button('Active button', 'Button-active'))
+		)
+
 		this.button.onclick = () => log('Click')
 	}
 }
