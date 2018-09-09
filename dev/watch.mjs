@@ -19,12 +19,14 @@ import rollupPostcss from 'rollup-plugin-postcss'
 // e.g. node dev/watch.mjs
 //
 
+let outputOptions = {
+	file: 'public/bundle.js',
+	format: 'iife'
+}
+
 let watchOptions = {
 	input: 'client/main.mjs',
-	output: {
-		file: 'public/bundle.js',
-		format: 'iife'
-	},
+	output: outputOptions,
 	watch: {
 		clearScreen: false
 	},
@@ -36,11 +38,27 @@ let watchOptions = {
 			extract: 'public/styles.css',
 			sourceMap: true,
 			plugins: []
-		}),
+		})
 	]
 }
 
-let watcher = rollup.watch(watchOptions)
+let doWatch = process.argv.includes('--watch')
+
+log('!!! DO ', doWatch, process.argv)
+
+async function doIt() {
+	if (doWatch) {
+		let watcher = rollup.watch(watchOptions)
+		watcher.on('event', ev => {
+			handleEvent(ev)
+		})
+	} else {
+		const bundle = await rollup.rollup(watchOptions)
+
+		// or write the bundle to disk
+		await bundle.write(outputOptions)
+	}
+}
 
 // Return { file, line, column } from any error, if we can
 function findLoc(error) {
@@ -113,6 +131,6 @@ function handleEvent(ev) {
 	}
 }
 
-watcher.on('event', ev => {
-	handleEvent(ev)
-})
+doIt()
+	.then(() => {})
+	.catch(log)
