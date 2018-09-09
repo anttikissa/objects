@@ -1,25 +1,30 @@
 #!/bin/bash
 
-# TODO: when the module loader is no longer experimental,
-# remove the filter. (Bash-only;
-# https://unix.stackexchange.com/questions/3514/how-to-grep-standard-error-stream-stderr)
-
 export TZ=UTC
 
 cd $(dirname $0)
 
-# Check if we need to do build-dev
-if [ ! -f public/styles.css ]
-then
-	./build
-fi
+# We're assuming this is the dev env so use watch for that.
+
+./watch &
+WATCH_PID=$!
+
+function kill_autobuild {
+	echo KILL $WATCH_PID
+	kill $WATCH_PID
+}
+
+trap kill_autobuild EXIT
 
 while true
 do
+	# TODO: when the module loader is no longer experimental,
+	# remove the filter. (Bash-only;
+	# https://unix.stackexchange.com/questions/3514/how-to-grep-standard-error-stream-stderr)
 	node --experimental-modules ./server/main.mjs \
 		2> >(grep -v "The ESM module loader is experimental")
 	RESULT=$?
-	# Result 10 means "restart me"
+	# Result 1 means "I crashed (syntax error or something)"
 	if [ "$RESULT" -eq 1 ]
 	then
 		echo
@@ -33,7 +38,7 @@ do
 
 		echo "Here we go again:"
 		echo ""
-
+	# Result 10 means "restart me"
 	elif [ "$RESULT" -eq 10 ]
 	then
 		:
