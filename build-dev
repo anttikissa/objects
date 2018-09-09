@@ -6,6 +6,6 @@
 
 cd $(dirname $0)
 
-# rollup client/main.mjs --format iife -o public/bundle-dev.js
+# rollup client/main.mjs --format iife -o public/bundle.js
 rollup -c rollup.config.js
 

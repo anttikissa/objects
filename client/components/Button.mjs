@@ -1,5 +1,6 @@
 import { el } from 'redom'
-// You cannot do that so let's have a build step after all
+// import { log } from '../../common/log.mjs'
+
 import './Button.styl'
 
 export class Button {

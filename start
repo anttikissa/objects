@@ -9,10 +9,10 @@ export TZ=UTC
 cd $(dirname $0)
 
 # Check if we need to do build-dev
-if [ ! -f public/styles-dev.css ]
-then
-	./build-dev
-fi
+#if [ ! -f public/styles-dev.css ]
+#then
+#	./build-dev
+#fi
 
 while true
 do

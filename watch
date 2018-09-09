@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd $(dirname $0)
+
+node --experimental-modules ./dev/watch.mjs \
+	2> >(grep -v "The ESM module loader is experimental")

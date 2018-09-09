@@ -3,6 +3,8 @@ import { el, mount } from 'redom'
 import { log } from '../common/log.mjs'
 import { sleep } from '../common/util.mjs'
 
+import './global-styles.styl'
+
 import { Button } from './components/Button.mjs'
 
 class App {

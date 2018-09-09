@@ -4,7 +4,7 @@ import stylus from 'rollup-plugin-stylus-css-modules'
 export default {
 	input: 'client/main.mjs',
 	output: {
-		file: 'public/bundle-dev.js',
+		file: 'public/bundle.js',
 		format: 'iife'
 	},
 	plugins: [

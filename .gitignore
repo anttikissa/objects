@@ -3,6 +3,7 @@ node_modules
 output
 
 #public/*.mjs
-public/bundle-dev.js
-public/styles-dev.css
+public/bundle.js
+public/styles.css
+public/styles.css.map
 
