@@ -20,7 +20,7 @@ import rollupPostcss from 'rollup-plugin-postcss'
 
 let outputOptions = {
 	file: 'public/bundle.js',
-	format: 'iife'
+	format: 'esm'
 }
 
 let rollupOptions = {

@@ -7,6 +7,8 @@ import './global-styles.styl'
 
 import { Button } from './components/Button.mjs'
 
+console.log('HELLO WORLD')
+
 class App {
 	constructor() {
 		this.el = el(
@@ -27,6 +29,7 @@ async function main() {
 
 	for (let i = 0; i < 5; i++) {
 		await sleep(300)
+		log('Hello IE!')
 
 		mount(app, el('p', `This is ${i}`))
 		log('Slept 300 ms')

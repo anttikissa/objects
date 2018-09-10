@@ -2,5 +2,7 @@
 
 cd $(dirname $0)
 
-node --experimental-modules ./dev/build.mjs --watch "$@" \
-	2> >(grep -v "The ESM module loader is experimental")
+./build -w
+
+#node --experimental-modules ./dev/build.mjs --watch "$@" \
+#	2> >(grep -v "The ESM module loader is experimental")

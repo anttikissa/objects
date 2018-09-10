@@ -2,5 +2,26 @@
 
 cd $(dirname $0)
 
+export PATH=$PATH:./node_modules/.bin
+
+if [ "$1" = '--watch' -o "$1" = '-w' ]
+then
+	WATCH=1
+else
+	WATCH=0
+fi
+
 node --experimental-modules ./dev/build.mjs "$@" \
 	2> >(grep -v "The ESM module loader is experimental")
+
+# TODO for production only
+if [ "$WATCH" = 0 ]
+then
+	# ... and really this should be "AND do a production build"
+	SRC=./public/bundle.js
+	DEST=public/bundle.es5.js
+	babel $SRC -o $DEST
+
+	echo "Babelized $SRC => $DEST"
+fi
+

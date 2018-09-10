@@ -4,6 +4,7 @@ output
 
 #public/*.mjs
 public/bundle.js
+public/bundle.es5.js
 public/styles.css
 public/styles.css.map
 
