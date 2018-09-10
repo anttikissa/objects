@@ -7,7 +7,7 @@ import './global-styles.styl'
 
 import { Button } from './components/Button.mjs'
 
-console.log('HELLO WORLD')
+log('Hello change!')
 
 class App {
 	constructor() {

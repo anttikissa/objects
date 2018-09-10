@@ -1,6 +1,0 @@
-#!/bin/bash
-
-export PATH=$PATH:./node_modules/.bin
-
-mkdir -p output
-babel babel-test.js -d output
