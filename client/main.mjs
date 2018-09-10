@@ -1,13 +1,11 @@
 import { el, mount } from 'redom'
 
-import { log } from '../common/log.mjs'
-import { sleep } from '../common/util.mjs'
+import { log } from '../common/log'
+import { sleep } from '../common/util'
 
 import './global-styles.styl'
 
-import { Button } from './components/Button.mjs'
-
-log('Hello change!')
+import { Button } from './components/Button'
 
 class App {
 	constructor() {
