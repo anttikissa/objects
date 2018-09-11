@@ -2,20 +2,34 @@
 
 export TZ=UTC
 
+if [ "$NODE_ENV" = "" ]
+then
+	export NODE_ENV=development
+fi
+
 cd $(dirname $0)
 
-# We're assuming this is the dev env so use watch for that.
-
-./watch &
-WATCH_PID=$!
-
-function kill_autobuild {
-	echo KILL $WATCH_PID
-	kill $WATCH_PID
+function dev_mode {
+	[ "$NODE_ENV" = development ]
 }
 
-trap kill_autobuild EXIT
+if dev_mode
+then
+	./watch &
+	WATCH_PID=$!
 
+	function kill_autobuild {
+		echo KILL $WATCH_PID
+		kill $WATCH_PID
+	}
+
+	trap kill_autobuild EXIT
+fi
+
+# In dev mode, run the server repeatedly, restarting it if files change.
+# If it exits because of syntax error, wait until files change until
+# starting it again.
+# In prod mode, run the server and exit if it exits.
 while true
 do
 	# TODO: when the module loader is no longer experimental,
@@ -24,6 +38,13 @@ do
 	node --experimental-modules ./server/main.mjs \
 		2> >(grep -v "The ESM module loader is experimental")
 	RESULT=$?
+
+	if ! dev_mode
+	then
+		echo "Process exited with result $RESULT"
+		exit $RESULT
+	fi
+
 	# Result 1 means "I crashed (syntax error or something)"
 	if [ "$RESULT" -eq 1 ]
 	then
