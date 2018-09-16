@@ -1,9 +1,9 @@
 {
-  "name": "greenfield",
+  "name": "objects",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:resqclub/greenfield.git",
-  "author": "Antti Kissaniemi <antti@resq-club.com>",
+  "repository": "https://github.com/anttikissa/objects.git",
+  "author": "Antti Kissaniemi <antti.kissaniemi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
